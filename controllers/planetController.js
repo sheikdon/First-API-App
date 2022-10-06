@@ -30,6 +30,9 @@ router.get("/", (req, res) => {
 // POST request
 // create route -> gives the ability to create new fruits
 router.post("/", (req, res) => {
+
+    req.body.owner = req.session.userId
+
     // here, we'll get something called a request body
     // inside this function, that will be referred to as req.body
     // we'll use the mongoose model method `create` to make a new fruit
@@ -46,17 +49,16 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
     // console.log("I hit the update route", req.params.id)
     const id = req.params.id
-    
-    // for now, we'll use a simple mongoose model method, eventually we'll update this(and all) routes and we'll use a different method
-    // we're using findByIdAndUpdate, which needs three arguments
-    // it needs an id, it needs the req.body, and whether the info is new
-    Planet.findByIdAndUpdate(id, req.body, { new: true })
-        .then(fruit => {
-            console.log('the fruit from update', planet)
-            // update success is called '204 - no content'
-            res.sendStatus(204)
+    Planet.findById(id)
+        .then(planet => {
+            if (planet.owner == req.session.userId) {
+                res.sendStatus(204)
+                return planet.updateOne(req.body)
+            } else {
+                res.sendStatus(401)
+            }
         })
-        .catch(err => console.log(err))
+        .catch(error => res.json(error))
 })
 
 // DELETE request
@@ -65,26 +67,41 @@ router.delete("/:id", (req, res) => {
     // grab the id from the request
     const id = req.params.id
     // find and delete the fruit
-    Planet.findByIdAndRemove(id)
-        // send a 204 if successful
-        .then(() => {
-            res.sendStatus(204)
+    // Fruit.findByIdAndRemove(id)
+    Planet.findById(id)
+        .then(planet => {
+            // we check for ownership against the logged in user's id
+            if (planet.owner == req.session.userId) {
+                // if successful, send a status and delete the fruit
+                res.sendStatus(204)
+                return planet.deleteOne()
+            } else {
+                // if they are not the user, send the unauthorized status
+                res.sendStatus(401)
+            }
         })
         // send the error if not
         .catch(err => res.json(err))
 })
 
-// SHOW request
+/// SHOW request
 // read route -> finds and displays a single resource
 router.get("/:id", (req, res) => {
     const id = req.params.id
 
     Planet.findById(id)
+        // populate will provide more data about the document that is in the specified collection
+        // the first arg is the field to populate
+        // the second can specify which parts to keep or which to remove
+        // .populate("owner", "username")
+        // we can also populate fields of our subdocuments
+        .populate("comments.author", "username")
         .then(planet => {
             res.json({ planet: planet })
         })
         .catch(err => console.log(err))
 })
+
 
 
 //////////////////////////////////////////

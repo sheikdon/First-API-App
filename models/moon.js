@@ -16,7 +16,7 @@ const db = mongoose.connection
 
 db.on('open', () => {
     // bring in the array of starter fruits
-    const startFruits = [
+    const startPlanets = [
         { name: "Earth", color: "blue-green", readyToLive: true },
         { name: "Mars", color: "red", readyToLive: false },
         { name: "Venus", color: "brown", readyToLive: false },
@@ -25,12 +25,12 @@ db.on('open', () => {
     ]
 
     // delete all the existing fruits
-    Planet.deleteMany({})
+    Planet.deleteMany({ owner: null })
         .then(deletedPlanets => {
             console.log('this is what .deleteMany returns', deletedPlanets)
 
             // create a bunch of new fruits from startFruits
-            Planet.create(startFruits)
+            Planet.create(startPlanets)
                 .then(data => {
                     console.log('here are the newly created fruits', data)
                     // always close connection to the db
