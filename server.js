@@ -9,12 +9,15 @@ const express = require("express") // import express
 const path = require("path") // import path module
 const planetRouter = require('./controllers/planetController')
 const UserRouter = require('./controllers/userController')
+const CommentRouter = require('./controllers/commentController')
 const middleware = require('./utils/middleware')
 
 /////////////////////////////////////////////
 // Create our Express Application Object
 /////////////////////////////////////////////
-const app = express()
+// const app = express()
+const app = require('liquid-express-views')(express())
+
 
 /////////////////////////////////////////////
 // Middleware
@@ -28,9 +31,10 @@ middleware(app)
 // Home Route
 /////////////////////////////////////////////
 app.get("/", (req, res) => {
-    res.send("Your server is running, better go out and catch it")
+    // res.send("Your server is starting, better go out and catch it")
     // you can also send html as a string from res.send
     // res.send("<small style='color: red'>Your server is running, better go out and catch it</small>")
+    res.render('index.liquid')
 })
 
 /////////////////////////////////////////////
@@ -40,6 +44,7 @@ app.get("/", (req, res) => {
 // app.use, when we register a route, needs two arguments
 // the first, is the base url endpoint, the second is the file to use
 app.use('/planets', planetRouter)
+app.use('/comments', CommentRouter)
 app.use('/users', UserRouter)
 
 /////////////////////////////////////////////

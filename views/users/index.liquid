@@ -1,0 +1,12 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+  <h1 class="display-4">Welcome To Worldly Inventory!</h1>
+  <p>Log in to see cool information on these worldly planets!</p>
+  <div class="btn-group btn-group-lg">
+    <a href="/users/signup" class="btn btn-light">Sign Up</a>
+    <a href="/users/login" class="btn btn-light">Login</a>
+    {%- comment -%}
+      <img src="https://pbs.twimg.com/media/CYrA2z3WQAAOZDe.png">
+    {%- endcomment -%}
+  </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+img {
+    justify-content: center;
+}
+
+.card {
+    margin: 5px;
+    width: 18rem;
+    /* background-color: blanchedalmond; */
+    color: black;
+}

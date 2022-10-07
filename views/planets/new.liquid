@@ -1,0 +1,22 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+
+  <div class="container-sm">
+    <form action="/planets" method="POST">
+      <fieldset>
+        <legend>Create a New Worldly Planet!</legend>
+        <label class="form-label">Name:
+        </label>
+        <input class="form-control" type="text" name="name" placeholder="enter the name of the planet">
+        <label class="form-label">Color:
+        </label>
+        <input class="form-control" type="text" name="color" placeholder="what color is the planet?">
+        <label class="form-label">Ready To Live?:
+        </label>
+        <input class="form-check-input" type="checkbox" name="readyToLive">
+      </fieldset>
+      <input class="btn btn-success" type="submit" value="Create New Worldy Planet">
+    </form>
+  </div>
+
+{% endblock %}
