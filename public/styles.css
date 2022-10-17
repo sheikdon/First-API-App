@@ -1,5 +1,9 @@
 body {
     background-color: black;
+    background-image: url("https://images.squarespace-cdn.com/content/v1/5b5767a94eddec201ef256b1/1620412040187-JEMUKT5P9F31EJXFY2L6/SOL+Space+VFX+Elements+What%27s+Included.gif?format=2500w");
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 80%;
     color: white;
     text-align: center;
 }
@@ -10,7 +14,6 @@ img {
 
 .card {
     margin: 5px;
-    width: 18rem;
     /* background-color: blanchedalmond; */
     color: black;
 }

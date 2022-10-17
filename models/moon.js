@@ -15,24 +15,24 @@ const Planet = require('./planet')
 const db = mongoose.connection
 
 db.on('open', () => {
-    // bring in the array of starter fruits
+    // bring in the array of starter planets
     const startPlanets = [
-        { name: "Earth", color: "blue-green", readyToLive: true },
-        { name: "Mars", color: "red", readyToLive: false },
-        { name: "Venus", color: "brown", readyToLive: false },
-        { name: "Saturn", color: "orange", readyToLive: false },
-        { name: "Uranus", color: "blue", readyToLive: false },
+        { name: "Earth", image: "https://www.gstatic.com/culturalinstitute/searchar/assets/earth/desktop_dark.mp4", readyToLive: true },
+        { name: "Mars", image: "https://www.gstatic.com/culturalinstitute/searchar/assets/mars/desktop_dark.mp4", readyToLive: false },
+        { name: "Venus", image: "https://www.gstatic.com/culturalinstitute/searchar/assets/venus_surface/desktop_dark.mp4", readyToLive: false },
+        { name: "Saturn", image: "https://www.gstatic.com/culturalinstitute/searchar/assets/saturn/desktop_dark.mp4", readyToLive: false },
+        { name: "Uranus", image: "https://www.gstatic.com/culturalinstitute/searchar/assets/uranus/desktop_dark.mp4", readyToLive: false },
     ]
 
-    // delete all the existing fruits
+    // delete all the existing planets
     Planet.deleteMany({ owner: null })
         .then(deletedPlanets => {
             console.log('this is what .deleteMany returns', deletedPlanets)
 
-            // create a bunch of new fruits from startFruits
+            // create a bunch of new planets from startplanets
             Planet.create(startPlanets)
                 .then(data => {
-                    console.log('here are the newly created fruits', data)
+                    console.log('here are the newly created planets', data)
                     // always close connection to the db
                     db.close()
                 })

@@ -13,7 +13,7 @@ const {Schema, model } = mongoose
 // planets schema
 const planetSchema = new Schema({
     name: String,
-    color: String,
+    image: String,
     readyToEat: Boolean,
     owner: {
         // here we can refer to an objectId
@@ -33,5 +33,5 @@ const Planet = model("Planet", planetSchema)
 /////////////////////////////////////////////
 // Export our model
 /////////////////////////////////////////////
-//export the fruit model
+//export the planet model
 module.exports = Planet
